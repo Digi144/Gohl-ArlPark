@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ARL.PARK - Indoor Funpark St. Anton am Arlberg</title>
+    <meta name="description" content="Indoor Funpark St. Anton am Arlberg - Trampolin, Klettern, Bowling, Squash & mehr. Tickets online buchen oder einfach vorbeikommen!">
+    <meta name="keywords" content="Indoor Funpark, St. Anton, Trampolin, Klettern, Bowling, Squash, Aktivitäten, Tirol">
+    <meta property="og:title" content="ARL.PARK - Indoor Funpark St. Anton am Arlberg">
+    <meta property="og:description" content="Dein Action-Erlebnis unter einem Dach - Trampolin, Klettern, Bowling & mehr im Indoor Funpark St. Anton am Arlberg">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#1E40AF">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -66,6 +72,12 @@
             width: auto;
         }
 
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
         .nav-menu {
             display: none;
             gap: 2rem;
@@ -82,6 +94,29 @@
 
         .nav-menu a:hover {
             color: var(--primary-blue);
+        }
+
+        .nav-cta {
+            display: none;
+        }
+
+        .nav-cta-btn {
+            background: var(--accent-orange);
+            color: var(--white);
+            padding: 0.625rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+            white-space: nowrap;
+        }
+
+        .nav-cta-btn:hover {
+            background: #EA580C;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
         }
 
         .mobile-menu-btn {
@@ -167,11 +202,12 @@
         }
 
         .hero-subtitle {
-            font-size: clamp(1rem, 3vw, 1.5rem);
+            font-size: clamp(1rem, 4vw, 2.25rem);
             font-weight: 300;
             margin: 0;
             opacity: 0.95;
             animation: fadeInUp 0.8s ease-out 0.2s both;
+            text-align: center;
         }
 
         .hero-cta {
@@ -268,6 +304,26 @@
             }
         }
 
+        /* Mobile Menu Overlay */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
         /* Mobile Menu */
         .mobile-menu {
             position: fixed;
@@ -282,12 +338,18 @@
             opacity: 0;
             transition: all 0.3s ease;
             pointer-events: none;
+            max-height: calc(100vh - 70px);
+            overflow-y: auto;
         }
 
         .mobile-menu.active {
             transform: translateY(0);
             opacity: 1;
             pointer-events: all;
+        }
+
+        body.menu-open {
+            overflow: hidden;
         }
 
         .mobile-menu a {
@@ -311,6 +373,10 @@
 
             .nav-menu {
                 display: flex;
+            }
+
+            .nav-cta {
+                display: block;
             }
 
             .hero-content {
@@ -694,18 +760,27 @@
             }
         }
 
-        /* Hero-specific styling for activity tiles */
+        /* Hero-specific styling for activity tiles - Premium Design */
         .hero-grid .activity-tile {
             background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.12),
+                0 2px 8px rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .hero-grid .activity-tile:hover {
             background: rgba(255, 255, 255, 1);
-            transform: translateY(-8px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.2),
+                0 8px 24px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 1);
+            border-color: rgba(255, 255, 255, 0.8);
         }
 
         .activity-tile::before {
@@ -714,86 +789,137 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background: var(--tile-color, #6B7280);
-            transition: height 0.3s ease;
+            height: 3px;
+            background: linear-gradient(90deg, var(--tile-color, #6B7280), var(--tile-color-light, #9CA3AF));
+            border-radius: 20px 20px 0 0;
+            transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 1;
         }
 
-        .activity-tile:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        .activity-tile::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--tile-color, transparent) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            border-radius: 20px;
+            pointer-events: none;
         }
 
         .activity-tile:hover::before {
             height: 100%;
-            opacity: 0.1;
+            opacity: 0.08;
+            border-radius: 20px;
+        }
+
+        .activity-tile:hover::after {
+            opacity: 0.05;
         }
 
         .activity-tile.trampolin {
             --tile-color: #3B82F6;
+            --tile-color-light: #60A5FA;
         }
 
         .activity-tile.klettern {
             --tile-color: #EF4444;
+            --tile-color-light: #F87171;
         }
 
         .activity-tile.bowling {
             --tile-color: #8B5CF6;
+            --tile-color-light: #A78BFA;
         }
 
         .activity-tile.squash {
             --tile-color: #10B981;
+            --tile-color-light: #34D399;
         }
 
         .activity-tile.geburtstage {
             --tile-color: #F59E0B;
-            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            --tile-color-light: #FBBF24;
+            background: linear-gradient(135deg, rgba(254, 243, 199, 0.98) 0%, rgba(253, 230, 138, 0.98) 100%);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+        }
+
+        .activity-tile.geburtstage:hover {
+            background: linear-gradient(135deg, rgba(254, 243, 199, 1) 0%, rgba(253, 230, 138, 1) 100%);
         }
 
         .activity-tile.gutscheine {
             --tile-color: #EC4899;
+            --tile-color-light: #F472B6;
         }
 
         .activity-icon {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 1rem;
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 1.25rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--tile-color, #6B7280);
-            border-radius: 15px;
+            background: linear-gradient(135deg, var(--tile-color, #6B7280) 0%, var(--tile-color-light, #9CA3AF) 100%);
+            border-radius: 18px;
             color: var(--white);
-            transition: transform 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                0 4px 12px rgba(0, 0, 0, 0.15),
+                0 2px 4px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            position: relative;
+            z-index: 2;
         }
 
         .activity-tile:hover .activity-icon {
-            transform: scale(1.1) rotate(5deg);
+            transform: scale(1.15) rotate(5deg);
+            box-shadow: 
+                0 8px 20px rgba(0, 0, 0, 0.2),
+                0 4px 8px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
         }
 
         .activity-tile.geburtstage .activity-icon {
             background: linear-gradient(135deg, #F97316 0%, #F59E0B 100%);
+            box-shadow: 
+                0 4px 12px rgba(249, 115, 22, 0.3),
+                0 2px 4px rgba(249, 115, 22, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
 
         .activity-name {
-            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            font-size: clamp(1.0625rem, 2.5vw, 1.3125rem);
             font-weight: 700;
             margin-bottom: 0.5rem;
             color: var(--text-dark);
             position: relative;
-            z-index: 1;
+            z-index: 2;
+            letter-spacing: -0.01em;
+            transition: color 0.3s ease;
+        }
+
+        .activity-tile:hover .activity-name {
+            color: var(--tile-color, var(--text-dark));
         }
 
         .activity-description {
-            font-size: 0.875rem;
+            font-size: clamp(0.8125rem, 2vw, 0.9375rem);
             color: var(--text-light);
             position: relative;
-            z-index: 1;
+            z-index: 2;
+            line-height: 1.5;
+            font-weight: 500;
+            transition: color 0.3s ease;
         }
 
         .activity-tile.geburtstage .activity-description {
             color: #92400E;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         /* Essential Info Section */
@@ -895,6 +1021,444 @@
             font-size: clamp(0.95rem, 2.5vw, 1.0625rem);
             opacity: 0.95;
         }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 4rem 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            background: #F9FAFB;
+        }
+
+        .contact-section h2 {
+            font-size: clamp(1.75rem, 5vw, 2.5rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--text-dark);
+            letter-spacing: -0.02em;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .contact-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .contact-card h3 {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .contact-card h3 svg {
+            width: 28px;
+            height: 28px;
+            color: var(--primary-blue);
+        }
+
+        .contact-info {
+            margin-bottom: 2rem;
+        }
+
+        .contact-info p {
+            font-size: clamp(1rem, 2.5vw, 1.125rem);
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            line-height: 1.7;
+        }
+
+        .contact-info a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            background: #25D366;
+            color: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: clamp(1rem, 2.5vw, 1.125rem);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .whatsapp-btn:hover {
+            background: #20BA5A;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(37, 211, 102, 0.4);
+        }
+
+        .whatsapp-btn svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Geburtstage & Gruppenangebote Section */
+        .birthday-section {
+            padding: 4rem 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #F97316 0%, #F59E0B 100%);
+            color: var(--white);
+            border-radius: 30px;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .birthday-section h2 {
+            font-size: clamp(1.75rem, 5vw, 2.5rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+            letter-spacing: -0.02em;
+        }
+
+        .birthday-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .birthday-content p {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .birthday-cta {
+            display: inline-block;
+            background: var(--white);
+            color: #F97316;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: clamp(1rem, 2.5vw, 1.125rem);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .birthday-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+        }
+
+        /* Aktivitäten-Übersicht Section */
+        .activities-overview {
+            padding: 4rem 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            background: var(--white);
+        }
+
+        .activities-overview h2 {
+            font-size: clamp(1.75rem, 5vw, 2.5rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--text-dark);
+            letter-spacing: -0.02em;
+        }
+
+        .activities-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .activities-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .activities-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .activity-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        .activity-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .activity-card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .activity-card h3 {
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        .activity-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+            font-size: clamp(0.95rem, 2vw, 1rem);
+        }
+
+        /* Gutscheinverkauf Section */
+        .voucher-section {
+            padding: 4rem 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #1E40AF 0%, #2563EB 100%);
+            color: var(--white);
+            border-radius: 30px;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .voucher-section h2 {
+            font-size: clamp(1.75rem, 5vw, 2.5rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+            letter-spacing: -0.02em;
+        }
+
+        .voucher-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .voucher-content p {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .voucher-cta {
+            display: inline-block;
+            background: var(--white);
+            color: var(--primary-blue);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: clamp(1rem, 2.5vw, 1.125rem);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .voucher-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+        }
+
+        /* Cookie Banner */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            z-index: 10000;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .cookie-banner.active {
+            transform: translateY(0);
+        }
+
+        .cookie-banner-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .cookie-banner-content {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
+        .cookie-banner-text {
+            flex: 1;
+            font-size: clamp(0.875rem, 2vw, 1rem);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .cookie-banner-text a {
+            color: var(--primary-blue);
+            text-decoration: underline;
+        }
+
+        .cookie-banner-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .cookie-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cookie-btn-accept {
+            background: var(--primary-blue);
+            color: var(--white);
+        }
+
+        .cookie-btn-accept:hover {
+            background: var(--primary-blue-dark);
+        }
+
+        .cookie-btn-decline {
+            background: transparent;
+            color: var(--text-dark);
+            border: 2px solid var(--text-light);
+        }
+
+        .cookie-btn-decline:hover {
+            border-color: var(--text-dark);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: 3rem 1.5rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .footer-section h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--white);
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Accessibility */
+        button:focus-visible,
+        a:focus-visible {
+            outline: 2px solid var(--primary-blue);
+            outline-offset: 2px;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
     </style>
 </head>
 <body>
@@ -911,22 +1475,30 @@
                     <path class="st1" d="M223.3,100.7L165.2,0L107,100.7H123l42.1-73l42.1,73H223.3L223.3,100.7z M69.5,165.7l-21.8,37.7h234.8  l-21.8-37.7h-16l13.7,23.8H71.7l13.7-23.8H69.5L69.5,165.7z"></path>
                 </svg>
             </div>
-            <div class="nav-menu">
-                <a href="#preise">Preise</a>
-                <a href="#buchen">Buchen</a>
-                <a href="#oeffnungszeiten">Öffnungszeiten</a>
-                <a href="#gutscheine">Gutscheine</a>
+            <div class="nav-right">
+                <div class="nav-menu">
+                    <a href="#preise">Preise</a>
+                    <a href="#buchen">Buchen</a>
+                    <a href="#oeffnungszeiten">Öffnungszeiten</a>
+                    <a href="#gutscheine">Gutscheine</a>
+                </div>
+                <div class="nav-cta">
+                    <a href="#buchen" class="nav-cta-btn">Tickets buchen</a>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menü öffnen" aria-expanded="false">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 12h18M3 6h18M3 18h18"/>
+                    </svg>
+                </button>
             </div>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M3 12h18M3 6h18M3 18h18"/>
-                </svg>
-            </button>
         </div>
     </nav>
 
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+
     <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Mobile Navigation">
         <a href="#preise">Preise</a>
         <a href="#buchen" id="buchen">Buchen</a>
         <a href="#oeffnungszeiten">Öffnungszeiten</a>
@@ -1080,20 +1652,227 @@
         </div>
     </section>
 
+    <!-- Geburtstage & Gruppenangebote Section -->
+    <section class="birthday-section" id="geburtstage">
+        <h2>Geburtstage & Gruppenangebote</h2>
+        <div class="birthday-content">
+            <p>Feiere deinen Geburtstag oder Event bei uns! Unvergessliche Momente für Groß und Klein. Spare mit unseren Gruppenpaketen und genieße Action pur.</p>
+            <a href="#kontakt" class="birthday-cta">Jetzt anfragen</a>
+        </div>
+    </section>
+
+    <!-- Aktivitäten-Übersicht Section -->
+    <section class="activities-overview" id="activities">
+        <h2>Aktivitäten-Übersicht</h2>
+        <div class="activities-grid">
+            <div class="activity-card">
+                <div class="activity-card-header">
+                    <div class="activity-card-icon" style="background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <h3>Trampolin</h3>
+                </div>
+                <p>Springe, fliege und erlebe Action auf unseren professionellen Trampolinen. Spaß für alle Altersgruppen!</p>
+            </div>
+            <div class="activity-card">
+                <div class="activity-card-header">
+                    <div class="activity-card-icon" style="background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
+                        </svg>
+                    </div>
+                    <h3>Klettern</h3>
+                </div>
+                <p>Klettere höher hinaus in unserer Kletterhalle. Herausforderungen für Anfänger und Profis.</p>
+            </div>
+            <div class="activity-card">
+                <div class="activity-card-header">
+                    <div class="activity-card-icon" style="background: linear-gradient(135deg, #A855F7 0%, #9333EA 100%);">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <circle cx="12" cy="12" r="6"/>
+                            <circle cx="12" cy="12" r="2"/>
+                        </svg>
+                    </div>
+                    <h3>Bowling</h3>
+                </div>
+                <p>Spiele eine Runde Bowling mit Familie und Freunden. Spaß garantiert für alle!</p>
+            </div>
+            <div class="activity-card">
+                <div class="activity-card-header">
+                    <div class="activity-card-icon" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%);">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <rect x="2" y="2" width="20" height="20" rx="2"/>
+                            <path d="M8 8h8v8H8z"/>
+                            <path d="M8 8l8 8M16 8l-8 8"/>
+                        </svg>
+                    </div>
+                    <h3>Squash</h3>
+                </div>
+                <p>Rasantes Spiel für Fitness und Spaß. Buche deinen Court und spiele eine Partie!</p>
+            </div>
+            <div class="activity-card">
+                <div class="activity-card-header">
+                    <div class="activity-card-icon" style="background: linear-gradient(135deg, #F97316 0%, #F59E0B 100%);">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                        </svg>
+                    </div>
+                    <h3>Geburtstage</h3>
+                </div>
+                <p>Feiere unvergessliche Geburtstage bei uns. Spezielle Pakete für kleine und große Feiern.</p>
+            </div>
+            <div class="activity-card">
+                <div class="activity-card-header">
+                    <div class="activity-card-icon" style="background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <rect x="3" y="8" width="18" height="4" rx="1"/>
+                            <path d="M12 8v13"/>
+                            <path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/>
+                            <path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/>
+                        </svg>
+                    </div>
+                    <h3>Gutscheine</h3>
+                </div>
+                <p>Verschenke Action und Spaß! Gutscheine für alle Aktivitäten – das perfekte Geschenk.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gutscheinverkauf Section -->
+    <section class="voucher-section" id="gutscheine">
+        <h2>Gutscheine</h2>
+        <div class="voucher-content">
+            <p>Verschenke Action, Spaß und unvergessliche Erlebnisse! Unsere Gutscheine sind das perfekte Geschenk für jeden Anlass. Gültig für alle Aktivitäten im ARL.PARK.</p>
+            <a href="#kontakt" class="voucher-cta">Jetzt Gutschein kaufen</a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="kontakt">
+        <h2>Kontakt & Anfahrt</h2>
+        <div class="contact-grid">
+            <div class="contact-card">
+                <h3>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                        <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                    Anfahrt
+                </h3>
+                <div class="contact-info">
+                    <p><strong>ARL.PARK</strong></p>
+                    <p>Indoor Funpark St. Anton am Arlberg</p>
+                    <p style="margin-top: 1rem; color: var(--text-light);">St. Anton am Arlberg, Tirol</p>
+                </div>
+            </div>
+            <div class="contact-card">
+                <h3>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                    Kontakt
+                </h3>
+                <div class="contact-info">
+                    <p style="margin-bottom: 1.5rem;">Hast du Fragen? Kontaktiere uns einfach!</p>
+                    <a href="https://wa.me/436641234567" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                        </svg>
+                        WhatsApp schreiben
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>ARL.PARK</h3>
+                    <p>Indoor Funpark St. Anton am Arlberg</p>
+                    <p>Dein Action-Erlebnis unter einem Dach</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="#preise">Preise</a>
+                    <a href="#buchen">Buchen</a>
+                    <a href="#oeffnungszeiten">Öffnungszeiten</a>
+                    <a href="#gutscheine">Gutscheine</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Rechtliches</h3>
+                    <a href="#impressum">Impressum</a>
+                    <a href="#datenschutz">Datenschutz</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ARL.PARK. Alle Rechte vorbehalten.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cookie Banner -->
+    <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie-Einstellungen">
+        <div class="cookie-banner-content">
+            <div class="cookie-banner-text">
+                <p>Wir verwenden Cookies, um dir die bestmögliche Erfahrung auf unserer Website zu bieten. Durch die Nutzung unserer Website stimmst du der Verwendung von Cookies zu. <a href="#datenschutz">Mehr erfahren</a></p>
+            </div>
+            <div class="cookie-banner-actions">
+                <button class="cookie-btn cookie-btn-accept" id="cookieAccept">Akzeptieren</button>
+                <button class="cookie-btn cookie-btn-decline" id="cookieDecline">Ablehnen</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Mobile menu toggle
+        // Mobile menu toggle with overlay and scroll lock
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        let menuOpen = false;
+
+        function openMenu() {
+            mobileMenu.classList.add('active');
+            mobileMenuOverlay.classList.add('active');
+            document.body.classList.add('menu-open');
+            mobileMenuBtn.setAttribute('aria-expanded', 'true');
+            menuOpen = true;
+        }
+
+        function closeMenu() {
+            mobileMenu.classList.remove('active');
+            mobileMenuOverlay.classList.remove('active');
+            document.body.classList.remove('menu-open');
+            mobileMenuBtn.setAttribute('aria-expanded', 'false');
+            menuOpen = false;
+        }
 
         mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('active');
+            if (menuOpen) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
         });
 
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-                mobileMenu.classList.remove('active');
+        mobileMenuOverlay.addEventListener('click', closeMenu);
+
+        // Close menu on ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && menuOpen) {
+                closeMenu();
             }
+        });
+
+        // Close mobile menu when clicking menu links
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', closeMenu);
         });
 
         // Navbar scroll effect
@@ -1115,16 +1894,41 @@
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    mobileMenu.classList.remove('active');
+                const href = this.getAttribute('href');
+                if (href !== '#' && href !== '#impressum' && href !== '#datenschutz') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        if (menuOpen) closeMenu();
+                    }
                 }
             });
+        });
+
+        // Cookie Banner
+        const cookieBanner = document.getElementById('cookieBanner');
+        const cookieAccept = document.getElementById('cookieAccept');
+        const cookieDecline = document.getElementById('cookieDecline');
+
+        // Check if user has already made a choice
+        if (!localStorage.getItem('cookieConsent')) {
+            setTimeout(() => {
+                cookieBanner.classList.add('active');
+            }, 1000);
+        }
+
+        cookieAccept.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'accepted');
+            cookieBanner.classList.remove('active');
+        });
+
+        cookieDecline.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'declined');
+            cookieBanner.classList.remove('active');
         });
     </script>
 </body>
